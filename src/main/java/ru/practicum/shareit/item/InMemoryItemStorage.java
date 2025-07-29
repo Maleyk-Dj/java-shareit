@@ -59,8 +59,8 @@ public class InMemoryItemStorage implements ItemStorage {
             return Collections.emptyList();
         }
         String lower = text.toLowerCase();
-        return items.values().stream().
-                filter(item -> item.getAvailable())
+        return items.values().stream()
+                .filter(item -> item.getAvailable())
                 .filter(item -> item.getName().toLowerCase().contains(lower))
                 .collect(Collectors.toList());
     }
