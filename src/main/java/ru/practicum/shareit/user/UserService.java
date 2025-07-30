@@ -3,6 +3,8 @@ package ru.practicum.shareit.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.handler.exception.EmailAlreadyExistsException;
+import ru.practicum.shareit.handler.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.List;
@@ -22,12 +24,12 @@ public class UserService {
         }
         User created = userStorage.save(user);
         log.debug("Пользователь сохранен в хранилище: {}", created);
-        return UserMapper.toUserDto(created);
+        return UserMapper.toDto(created);
     }
 
     public UserDto update(User user) {
         log.info("Обновление пользователя с id: {}", user.getId());
-        User existingUser = userStorage.getById(user.getId());
+        User existingUser = getByIdUser(user.getId());
         if (user.getName() != null && !user.getName().isBlank()) {
             existingUser.setName(user.getName());
         }
@@ -43,20 +45,24 @@ public class UserService {
         }
         userStorage.update(existingUser);
         log.debug("Пользователь обновлен в хранилище: ", existingUser);
-        return UserMapper.toUserDto(existingUser);
+        return UserMapper.toDto(existingUser);
     }
 
     public UserDto getById(Long id) {
         log.info("Получение пользователя по id: {}", id);
-        User user = userStorage.getById(id);
+        User user = getByIdUser(id);
         log.debug("Пользователь получен из хранилища с id:{}", id);
-        return UserMapper.toUserDto(user);
+        return UserMapper.toDto(user);
+    }
+
+    public User getByIdUser(Long id) {
+        return userStorage.getById(id).orElseThrow(() -> new NotFoundException("Пользователь с id= " + id + " не найден"));
     }
 
     public List<UserDto> getAll() {
         log.info("Получение списка всех пользователей ");
         return userStorage.getAll().stream()
-                .map(user -> UserMapper.toUserDto(user))
+                .map(user -> UserMapper.toDto(user))
                 .collect(Collectors.toList());
     }
 

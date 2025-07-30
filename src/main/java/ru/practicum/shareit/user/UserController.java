@@ -19,14 +19,14 @@ public class UserController {
     @PostMapping
     public UserDto create(@Valid @RequestBody UserDto userDto) {
         log.info("Получен запрос на создание пользователя c email {}", userDto.getEmail());
-        User user = UserMapper.toUserEntity(userDto);
+        User user = UserMapper.toEntity(userDto);
         return userService.create(user);
     }
 
     @PatchMapping("/{id}")
     public UserDto update(@PathVariable Long id, @RequestBody UserDto userDto) {
         log.info("Получен запрос на обновление пользователя c id {}", userDto.getId());
-        User user = UserMapper.toUserEntity(userDto);
+        User user = UserMapper.toEntity(userDto);
         user.setId(id);
         return userService.update(user);
     }

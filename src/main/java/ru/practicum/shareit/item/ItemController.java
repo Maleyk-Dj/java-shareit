@@ -46,7 +46,7 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public List<ItemDto> search(@RequestParam String text) {
+    public List<ItemDto> findByNameContains(@RequestParam String text) {
         log.info("Получен запрос на поиск вещи с именем {}", text);
         return itemService.search(text);
     }

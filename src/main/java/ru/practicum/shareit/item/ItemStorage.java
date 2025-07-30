@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemStorage {
 
@@ -8,11 +9,11 @@ public interface ItemStorage {
 
     Item update(Item item);
 
-    Item get(Long id);
+    Optional<Item> get(Long id);
 
     List<Item> getAllByUser(Long userId);
 
     void delete(Long id);
 
-    List<Item> search(String text);
+    List<Item> findByNameContains(String text);
 }
