@@ -64,7 +64,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -240,10 +239,7 @@
 			<id>coverage</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
