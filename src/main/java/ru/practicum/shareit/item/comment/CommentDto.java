@@ -1,4 +1,4 @@
-package ru.practicum.shareit.comment;
+package ru.practicum.shareit.item.comment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 public class CommentDto {
     private Long id;
     private String text;
-    private String authorName;   // из author.name
+    private String authorName;
     private LocalDateTime created;
 }

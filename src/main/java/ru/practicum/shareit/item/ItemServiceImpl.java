@@ -7,7 +7,7 @@ import ru.practicum.shareit.handler.exception.AccessDeniedException;
 import ru.practicum.shareit.handler.exception.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.user.User;
-import ru.practicum.shareit.user.UserServiceImpl;
+import ru.practicum.shareit.user.UserService;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
 
     @Override
     public ItemDto create(ItemDto itemDto, Long userId) {
-        User owner = userServiceImpl.getByIdUser(userId);
+        User owner = userService.getByIdUser(userId);
         Item item = ItemMapper.toEntity(itemDto, owner);
         Item saved = itemRepository.save(item);
         return ItemMapper.toDto(saved);

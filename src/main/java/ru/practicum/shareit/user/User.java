@@ -5,13 +5,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode (of = {"id"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -27,15 +26,4 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        User user = (User) object;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

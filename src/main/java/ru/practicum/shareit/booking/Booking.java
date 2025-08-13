@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "bookings")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"id"})
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

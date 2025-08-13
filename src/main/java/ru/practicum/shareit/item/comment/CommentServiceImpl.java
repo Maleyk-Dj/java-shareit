@@ -1,4 +1,4 @@
-package ru.practicum.shareit.comment;
+package ru.practicum.shareit.item.comment;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -14,7 +14,6 @@ import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.UserRepository;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,27 +22,23 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class CommentServiceImpl implements CommentService {
-    private final CommentRepository commentRepo;
-    private final BookingRepository bookingRepo;
-    private final ItemRepository itemRepo;
-    private final UserRepository userRepo;
-    private final Clock clock;
+    private final CommentRepository commentRepository;
+    private final BookingRepository bookingRepository;
+    private final ItemRepository itemRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
     public CommentDto add(long itemId, long userId, @Valid CommentCreateDto dto) {
         //Найдём вещь и автора
-        Item item = itemRepo.findById(itemId)
+        Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Вещь не найдена"));
-        User author = userRepo.findById(userId)
+        User author = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
-
-        //Текущее время (один раз!)
-        LocalDateTime now = LocalDateTime.now(clock);
-
+        LocalDateTime now = LocalDateTime.now();
 
         //Разрешено комментировать только после завершённой APPROVED-аренды
-        boolean allowed = bookingRepo.existsByBooker_IdAndItem_IdAndStatusAndEndBefore(
+        boolean allowed = bookingRepository.existsByBookerIdAndItemIdAndStatusAndEndBefore(
                 userId, itemId, BookingStatus.APPROVED, now);
 
         if (!allowed) {
@@ -57,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
         c.setAuthor(author);
         c.setCreated(now);
 
-        Comment saved = commentRepo.save(c);
+        Comment saved = commentRepository.save(c);
         log.info("comment-saved id={}, item={}, author={}", saved.getId(), itemId, userId);
 
         // Отдаём DTO
@@ -68,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public List<CommentDto> listForItem(long itemId) {
-        return commentRepo.findByItem_IdOrderByCreatedDesc(itemId)
+        return commentRepository.findByItemIdOrderByCreatedDesc(itemId)
                 .stream().map(CommentMapper::toDto).toList();
     }
 }

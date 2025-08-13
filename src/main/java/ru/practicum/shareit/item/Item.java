@@ -7,13 +7,12 @@ import lombok.*;
 import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.user.User;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "items")
 @Getter
 @Setter
 @ToString(exclude = {"owner", "request"})
+@EqualsAndHashCode (of = {"id"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
@@ -38,15 +37,4 @@ public class Item {
     @JoinColumn(name = "request_id")
     private ItemRequest request;
 
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        Item item = (Item) object;
-        return Objects.equals(id, item.id) && Objects.equals(name, item.name) && Objects.equals(description, item.description) && Objects.equals(available, item.available) && Objects.equals(owner, item.owner) && Objects.equals(request, item.request);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

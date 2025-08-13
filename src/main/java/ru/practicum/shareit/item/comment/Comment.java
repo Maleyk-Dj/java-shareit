@@ -1,18 +1,19 @@
-package ru.practicum.shareit.comment;
+package ru.practicum.shareit.item.comment;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.user.User;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "comments")
 @Getter
 @Setter
+@EqualsAndHashCode (of = {"id"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
@@ -29,20 +30,7 @@ public class Comment {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
-    @Column(name = "created", nullable = false)
-    private LocalDateTime created = LocalDateTime.now();
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        Comment comment = (Comment) object;
-        return Objects.equals(id, comment.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-
+    @CreationTimestamp
+    @Column(name = "created", nullable = false,updatable = false)
+    private LocalDateTime created;
 }

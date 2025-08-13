@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-    private final UserService userService;   // важно: интерфейс, не реализация
+    private final UserService userService;
     private final ItemService itemService;
 
     @Override
@@ -33,7 +33,7 @@ public class BookingServiceImpl implements BookingService {
         Item item = itemService.getEntityOrThrow(request.getItemId());
 
         // бизнес-валидации
-        if (Boolean.FALSE.equals(item.getAvailable())) {
+        if (!item.getAvailable()) {
             throw new ValidationException("Вещь недоступна для бронирования");
         }
         if (item.getOwner().getId().equals(userId)) {
