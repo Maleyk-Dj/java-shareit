@@ -7,14 +7,13 @@ import lombok.*;
 import ru.practicum.shareit.user.User;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "requests")
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode (of = {"id"})
+@EqualsAndHashCode(of = {"id"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemRequest {

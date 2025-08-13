@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 @Getter
 @Setter
-@EqualsAndHashCode (of = {"id"})
+@EqualsAndHashCode(of = {"id"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
@@ -31,6 +31,6 @@ public class Comment {
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
     @CreationTimestamp
-    @Column(name = "created", nullable = false,updatable = false)
+    @Column(name = "created", nullable = false, updatable = false)
     private LocalDateTime created;
 }
