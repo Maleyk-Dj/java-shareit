@@ -18,13 +18,17 @@ import ru.practicum.shareit.item.comment.CommentRepository;
 import ru.practicum.shareit.item.comment.CommentServiceImpl;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.UserRepository;
+import ru.practicum.shareit.ShareItApp; // Импорт вашего основного класса приложения server
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @Transactional
-@SpringBootTest
+@SpringBootTest(webEnvironment = RANDOM_PORT, classes = ShareItApp.class) // <-- ИСПРАВЛЕНО
 class CommentServiceImplTest {
 
     @Autowired

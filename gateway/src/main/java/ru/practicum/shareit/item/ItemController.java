@@ -67,6 +67,4 @@ public class ItemController {
         log.info("Getting item {} by user {}", id, userId);
         return itemClient.getItemById(userId, id);
     }
-
-
 }
