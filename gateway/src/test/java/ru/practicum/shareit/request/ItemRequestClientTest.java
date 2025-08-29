@@ -126,6 +126,7 @@ class ItemRequestClientTest {
         assertEquals(userId.toString(), httpEntityCaptor.getValue().getHeaders().getFirst("X-Sharer-User-Id"));
         assertEquals(Map.of("requestId", requestId), uriVariablesCaptor.getValue());
     }
+
     @Test
     void getAllItemRequests_ok() {
         long userId = 123L;
