@@ -45,6 +45,7 @@ class ItemServiceImplTest {
 
     @Test
     void testCreateItem_Success_NoRequest() {
+
         User owner = new User();
         owner.setName("Test Owner");
         owner.setEmail("owner@test.com");
@@ -70,6 +71,7 @@ class ItemServiceImplTest {
 
     @Test
     void testCreateItem_Success_WithRequest() {
+
         User owner = new User();
         owner.setName("Test Owner");
         owner.setEmail("owner@test.com");
@@ -117,6 +119,7 @@ class ItemServiceImplTest {
 
     @Test
     void testUpdate_Success() {
+
         User owner = new User();
         owner.setName("Malika Dja");
         owner.setEmail("malika.dja@bk.com");

@@ -1,6 +1,5 @@
 package ru.practicum.shareit.request.service;
 
-
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +35,7 @@ class ItemRequestServiceImplTest {
 
     @BeforeEach
     void setUp() {
+
         requestor = new User();
         requestor.setName("Test User");
         requestor.setEmail("test@example.com");
@@ -48,6 +48,7 @@ class ItemRequestServiceImplTest {
 
     @Test
     void testCreate_Success() {
+
         ItemRequestDto createdDto = itemRequestService.create(requestor.getId(), itemRequestDto);
 
         assertNotNull(createdDto);
@@ -61,6 +62,7 @@ class ItemRequestServiceImplTest {
 
     @Test
     void testCreate_UserNotFound_ThrowsException() {
+
         assertThrows(NotFoundException.class, () -> itemRequestService.create(999L, itemRequestDto));
     }
 }

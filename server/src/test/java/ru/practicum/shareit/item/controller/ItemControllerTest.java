@@ -52,6 +52,7 @@ public class ItemControllerTest {
 
     @Test
     void testCreateItem() throws Exception {
+
         long userId = 1L;
         when(itemService.create(any(ItemDto.class), eq(userId))).thenReturn(itemDto);
 
@@ -67,6 +68,7 @@ public class ItemControllerTest {
 
     @Test
     void testUpdateItem() throws Exception {
+
         long userId = 1L;
         long itemId = 1L;
         ItemDto updatedDto = new ItemDto(itemId, "New Drill", "Updated description", false, null, null, null, null, null);
@@ -85,6 +87,7 @@ public class ItemControllerTest {
 
     @Test
     void testGetAllByUser() throws Exception {
+
         long userId = 1L;
         ItemDto item2 = new ItemDto(2L, "Saw", "Hand saw", true, null, null, null, null, null);
         when(itemService.getAllByUser(eq(userId))).thenReturn(List.of(itemDto, item2));
@@ -99,6 +102,7 @@ public class ItemControllerTest {
 
     @Test
     void testSearchItems() throws Exception {
+
         when(itemService.search(anyString())).thenReturn(List.of(itemDto));
 
         mockMvc.perform(get("/items/search")
@@ -110,6 +114,7 @@ public class ItemControllerTest {
 
     @Test
     void testDeleteItem() throws Exception {
+
         long userId = 1L;
         long itemId = 1L;
         doNothing().when(itemService).delete(anyLong());
@@ -123,6 +128,7 @@ public class ItemControllerTest {
 
     @Test
     void testAddComment() throws Exception {
+
         long userId = 1L;
         long itemId = 1L;
         CommentCreateDto commentCreateDto = new CommentCreateDto("Great item!");
@@ -141,6 +147,7 @@ public class ItemControllerTest {
 
     @Test
     void testGetItemById() throws Exception {
+
         long userId = 1L;
         long itemId = 1L;
         ItemDto itemDtoWithComments = new ItemDto(itemId, "Drill", "Powerful drill", true, null, null, List.of(new CommentDto()), null, null);

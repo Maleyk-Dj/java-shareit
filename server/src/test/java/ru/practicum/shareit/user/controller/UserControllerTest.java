@@ -36,6 +36,7 @@ public class UserControllerTest {
 
     @Test
     void testCreateUser() throws Exception {
+
         UserDto userDto = new UserDto(1L, "John", "john.doe@mail.com");
 
         when(userService.create(any()))
@@ -52,6 +53,7 @@ public class UserControllerTest {
 
     @Test
     void testUpdateUser() throws Exception {
+
         UserDto updatedDto = new UserDto(1L, "Updated John", "updated.john@mail.com");
 
         when(userService.update(any(User.class)))
@@ -68,6 +70,7 @@ public class UserControllerTest {
 
     @Test
     void testGetUserById() throws Exception {
+
         UserDto userDto = new UserDto(1L, "John", "john.doe@mail.com");
 
         when(userService.getById(1L))
@@ -82,6 +85,7 @@ public class UserControllerTest {
 
     @Test
     void testGetAllUsers() throws Exception {
+
         UserDto user1 = new UserDto(1L, "John", "john.doe@mail.com");
         UserDto user2 = new UserDto(2L, "Jane", "jane.doe@mail.com");
 
@@ -99,6 +103,7 @@ public class UserControllerTest {
 
     @Test
     void testDeleteUser() throws Exception {
+
         mockMvc.perform(delete("/users/{id}", 1))
                 .andExpect(status().isOk());
 

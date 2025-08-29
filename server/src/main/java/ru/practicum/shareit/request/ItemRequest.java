@@ -35,4 +35,11 @@ public class ItemRequest {
     @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
     private List<Item> items;
 
+    public ItemRequest(Long id, String description, User requestor, LocalDateTime created) {
+        this.id = id;
+        this.description = description;
+        this.requestor = requestor;
+        this.created = created;
+    }
+
 }

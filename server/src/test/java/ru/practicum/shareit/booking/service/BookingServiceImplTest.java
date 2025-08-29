@@ -39,11 +39,11 @@ class BookingServiceImplTest {
 
     private User owner;
     private User booker;
-    private User otherUser; // Для тестов доступа
+    private User otherUser;
     private Item availableItem;
     private Item unavailableItem;
     private BookingRequestDto validBookingRequest;
-    private Booking waitingBooking; // Создадим бронь для тестов approve/getById
+    private Booking waitingBooking;
 
     @BeforeEach
     void setUp() {

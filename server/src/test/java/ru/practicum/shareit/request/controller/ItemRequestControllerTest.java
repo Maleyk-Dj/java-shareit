@@ -47,6 +47,7 @@ class ItemRequestControllerTest {
 
     @Test
     void testCreateRequest() throws Exception {
+
         when(itemRequestService.create(anyLong(), any(ItemRequestDto.class))).thenReturn(itemRequestDto);
 
         mockMvc.perform(post("/requests")
@@ -60,6 +61,7 @@ class ItemRequestControllerTest {
 
     @Test
     void testGetUserItemRequests() throws Exception {
+
         ItemRequestDto request2 = new ItemRequestDto(2L, "I need a saw.", LocalDateTime.now(), List.of());
         when(itemRequestService.getUserItemRequests(anyLong())).thenReturn(List.of(itemRequestDto, request2));
 
@@ -73,6 +75,7 @@ class ItemRequestControllerTest {
 
     @Test
     void testGetAllItemRequests() throws Exception {
+
         ItemRequestDto request2 = new ItemRequestDto(2L, "I need a screwdriver.", LocalDateTime.now(), List.of());
         when(itemRequestService.getAllItemRequests(anyLong())).thenReturn(List.of(request2));
 
@@ -85,6 +88,7 @@ class ItemRequestControllerTest {
 
     @Test
     void testGetItemRequestById() throws Exception {
+
         long requestId = 1L;
         ItemDtoForRequest item1 = new ItemDtoForRequest(1L, "Drill", 2L);
         itemRequestDto.setItems(List.of(item1));
