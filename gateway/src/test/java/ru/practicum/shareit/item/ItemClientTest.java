@@ -73,6 +73,45 @@ class ItemClientTest {
     }
 
     @Test
+    void updateItem_ok() {
+        long userId = 42L;
+        long itemId = 99L;
+        ItemDto dto = new ItemDto(itemId, "Drill", "Good drill",true,777L);
+
+        ResponseEntity<Object> expected = new ResponseEntity<>(new Object(), HttpStatus.OK);
+
+        when(restTemplate.exchange(
+                anyString(),
+                eq(HttpMethod.PATCH),
+                any(HttpEntity.class),
+                eq(Object.class))
+        ).thenReturn(expected);
+
+        // act
+        ResponseEntity<Object> actual = itemClient.updateItem(userId, itemId, dto);
+
+        // assert
+        assertEquals(expected, actual);
+
+        ArgumentCaptor<String> uriCap = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<HttpEntity<?>> entityCap = ArgumentCaptor.forClass(HttpEntity.class);
+
+        verify(restTemplate, times(1)).exchange(
+                uriCap.capture(),
+                eq(HttpMethod.PATCH),
+                entityCap.capture(),
+                eq(Object.class)
+        );
+
+        // путь без API_PREFIX (он уже настроен в DefaultUriBuilderFactory)
+        assertEquals("/" + itemId, uriCap.getValue());
+
+        HttpEntity<?> sent = entityCap.getValue();
+        assertEquals(String.valueOf(userId), sent.getHeaders().getFirst("X-Sharer-User-Id"));
+        assertEquals(dto, sent.getBody());
+    }
+
+    @Test
     void testGetAllByUser() {
         Long userId = 1L;
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(new Object(), HttpStatus.OK);

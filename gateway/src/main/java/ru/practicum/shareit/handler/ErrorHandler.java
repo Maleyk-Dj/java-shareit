@@ -17,27 +17,6 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ErrorHandler {
 
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFound(final NotFoundException ex) {
-        log.warn("Error", ex);
-        return new ErrorResponse("Объект не найден", ex.getMessage());
-    }
-
-    @ExceptionHandler(ConflictException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleConflict(final ConflictException ex) {
-        log.warn("Error", ex);
-        return new ErrorResponse("Конфликт данных", ex.getMessage());
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handleAccessDenied(final AccessDeniedException ex) {
-        log.warn("Error", ex);
-        return new ErrorResponse("Доступ запрещен", ex.getMessage());
-    }
-
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidation(final ValidationException ex) {

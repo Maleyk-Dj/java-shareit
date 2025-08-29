@@ -45,16 +45,6 @@ public class ErrorHandler {
         return new ErrorResponse("Ошибка валидации", ex.getMessage());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBeanValidation(MethodArgumentNotValidException ex) {
-        log.warn("Error", ex);
-        String errors = ex.getBindingResult().getFieldErrors().stream()
-                .map(e -> e.getField() + ": " + e.getDefaultMessage())
-                .collect(Collectors.joining("; "));
-        return new ErrorResponse("Ошибка валидации данных", errors);
-    }
-
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleAll(final Throwable ex) {

@@ -43,11 +43,9 @@ class BookingResponseDtoTest {
 
         var result = json.write(dto);
 
-        // Проверяем ID
         assertThat(result).hasJsonPathNumberValue("$.id");
         assertThat(result).extractingJsonPathNumberValue("$.id").isEqualTo(1); // <-- Исправлено здесь
 
-        // Проверяем другие поля
         assertThat(result).hasJsonPathStringValue("$.start");
         assertThat(result).extractingJsonPathStringValue("$.start").isEqualTo("2025-01-01T10:00:00");
 

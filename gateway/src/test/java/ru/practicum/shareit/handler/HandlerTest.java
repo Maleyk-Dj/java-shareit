@@ -51,31 +51,6 @@ class HandlerTest {
     }
 
     @Test
-    void notFound_mappedTo404_withBody() throws Exception {
-        mvc.perform(get("/test/notfound"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.error").value("Объект не найден"))
-                .andExpect(jsonPath("$.message").value("Бронирование не найдено"));
-    }
-
-    @Test
-    void conflict_mappedTo409_withBody() throws Exception {
-        mvc.perform(get("/test/conflict"))
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.error").value("Конфликт данных"))
-                .andExpect(jsonPath("$.message").value("Email уже используется"));
-    }
-
-    @Test
-    void accessDenied_mappedTo403_withBody() throws Exception {
-        mvc.perform(get("/test/forbidden"))
-                .andExpect(status().isForbidden())
-                .andExpect(jsonPath("$.error").value("Доступ запрещен"))
-                .andExpect(jsonPath("$.message").value("Нет прав"));
-    }
-
-    @Test
     void validation_mappedTo400_withBody() throws Exception {
         mvc.perform(get("/test/validation"))
                 .andExpect(status().isBadRequest())
