@@ -2,7 +2,6 @@ package ru.practicum.shareit.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,7 +10,6 @@ import ru.practicum.shareit.handler.exception.ConflictException;
 import ru.practicum.shareit.handler.exception.NotFoundException;
 import ru.practicum.shareit.handler.exception.ValidationException;
 
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice

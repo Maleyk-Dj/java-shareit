@@ -126,4 +126,39 @@ class ItemRequestClientTest {
         assertEquals(userId.toString(), httpEntityCaptor.getValue().getHeaders().getFirst("X-Sharer-User-Id"));
         assertEquals(Map.of("requestId", requestId), uriVariablesCaptor.getValue());
     }
+    @Test
+    void getAllItemRequests_ok() {
+        long userId = 123L;
+        ResponseEntity<Object> expected = new ResponseEntity<>(new Object(), HttpStatus.OK);
+
+        when(restTemplate.exchange(
+                anyString(),
+                eq(HttpMethod.GET),
+                any(HttpEntity.class),
+                eq(Object.class))
+        ).thenReturn(expected);
+
+        // act
+        ResponseEntity<Object> actual = itemRequestClient.getAllItemRequests(userId);
+
+        // assert
+        assertEquals(expected, actual);
+
+        ArgumentCaptor<String> uriCap = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<HttpEntity<?>> entityCap = ArgumentCaptor.forClass(HttpEntity.class);
+
+        verify(restTemplate, times(1)).exchange(
+                uriCap.capture(),
+                eq(HttpMethod.GET),
+                entityCap.capture(),
+                eq(Object.class)
+        );
+
+        // путь без API_PREFIX (он уже в DefaultUriBuilderFactory(serverUrl + "/requests"))
+        assertEquals("/all", uriCap.getValue());
+
+        HttpEntity<?> sent = entityCap.getValue();
+        assertEquals(String.valueOf(userId), sent.getHeaders().getFirst("X-Sharer-User-Id"));
+    }
+
 }
