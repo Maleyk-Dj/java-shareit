@@ -15,9 +15,8 @@ import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.comment.*;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.UserRepository;
-import ru.practicum.shareit.ShareItApp; // Импорт вашего основного класса приложения server
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+import ru.practicum.shareit.ShareItApp;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -117,6 +116,7 @@ class CommentServiceImplTest {
         CommentCreateDto commentDto = new CommentCreateDto("Test comment");
         assertThrows(NotFoundException.class, () -> commentService.add(item.getId(), 999L, commentDto));
     }
+
     @Test
     void listForItem_returnsEmpty_whenNoComments() {
         List<CommentDto> dtos = commentService.listForItem(item.getId());
@@ -127,9 +127,9 @@ class CommentServiceImplTest {
     void listForItem_returnsOnlyThisItemComments_sortedByCreatedDesc_andMapsDto() {
         // Комментарии к целевой вещи
         LocalDateTime now = LocalDateTime.now();
-        Comment c1 = saveComment(item, booker, "first",  now.minusMinutes(5));
+        Comment c1 = saveComment(item, booker, "first", now.minusMinutes(5));
         Comment c2 = saveComment(item, booker, "second", now.minusMinutes(3));
-        Comment c3 = saveComment(item, booker, "third",  now.minusMinutes(1));
+        Comment c3 = saveComment(item, booker, "third", now.minusMinutes(1));
 
         // Комментарий к другой вещи — не должен попасть в результат
         Item otherItem = new Item();
@@ -140,17 +140,13 @@ class CommentServiceImplTest {
         itemRepository.save(otherItem);
         saveComment(otherItem, booker, "other", now.minusMinutes(2));
 
-        // act
         List<CommentDto> dtos = commentService.listForItem(item.getId());
 
-        // assert: только 3 комментария текущей вещи
         assertThat(dtos).hasSize(3);
 
-        // порядок по created: DESC → third, second, first
         assertThat(dtos).extracting(CommentDto::getText)
                 .containsExactly("third", "second", "first");
 
-        // маппинг полей DTO
         assertThat(dtos.get(0).getAuthorName()).isEqualTo(booker.getName());
         assertThat(dtos.get(0).getCreated()).isEqualTo(c3.getCreated());
     }

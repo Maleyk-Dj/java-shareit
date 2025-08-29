@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ItemRequestServiceUnitTest {
+class ItemRequestUnitTest {
 
 
     @Mock
