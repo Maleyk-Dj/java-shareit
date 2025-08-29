@@ -15,13 +15,13 @@ import java.util.List;
 @Validated
 public class UserController {
 
-    public final UserServiceImpl userServiceImpl;
+    public final UserService userService;
 
     @PostMapping
     public UserDto create(@RequestBody UserDto userDto) {
         log.info("Получен запрос на создание пользователя c email {}", userDto.getEmail());
         User user = UserMapper.toEntity(userDto);
-        return userServiceImpl.create(user);
+        return userService.create(user);
     }
 
     @PatchMapping("/{id}")
@@ -29,24 +29,24 @@ public class UserController {
         log.info("Получен запрос на обновление пользователя c id {}", userDto.getId());
         User user = UserMapper.toEntity(userDto);
         user.setId(id);
-        return userServiceImpl.update(user);
+        return userService.update(user);
     }
 
     @GetMapping("/{id}")
     public UserDto get(@PathVariable Long id) {
         log.info("Получен запрос на получение пользователя по id= ", id);
-        return userServiceImpl.getById(id);
+        return userService.getById(id);
     }
 
     @GetMapping
     public List<UserDto> getAll() {
         log.info("Получен запрос на получение списка всех пользователей");
-        return userServiceImpl.getAll();
+        return userService.getAll();
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         log.info("Получен запрос на удаление пользователя по id= ", id);
-        userServiceImpl.delete(id);
+        userService.delete(id);
     }
 }

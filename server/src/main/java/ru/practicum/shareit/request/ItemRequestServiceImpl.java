@@ -66,7 +66,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
         List<Item> items = itemRepository.findByRequestIdOrderByIdAsc(requestId);
 
-        // Собираем DTO и гарантируем, что items — массив, не null
         ItemRequestDto dto = ItemRequestMapper.toDto(request);
         if (dto.getItems() == null) {
             dto.setItems(new ArrayList<>()); // гарантия: не null
