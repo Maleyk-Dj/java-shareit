@@ -99,6 +99,5 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.items", hasSize(1)))
                 .andExpect(jsonPath("$.items[0].name").value("Drill"));
     }
-
-
 }
+
